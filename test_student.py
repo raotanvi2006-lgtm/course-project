@@ -1,4 +1,5 @@
-from student import get_student_details, display_details
+import pytest
+from student import calculate_average, placement_eligibility
 
 def test_average_marks():
     marks = [60, 70, 80]
@@ -18,4 +19,17 @@ def test_internship_eligible():
 
 def test_not_eligible():
     avg = 50
+    assert placement_eligibility(avg) == "Not Eligible"
+
+# 🔎 Extra boundary tests
+def test_boundary_placement():
+    avg = 75
+    assert placement_eligibility(avg) == "Eligible for Placement"
+
+def test_boundary_internship():
+    avg = 60
+    assert placement_eligibility(avg) == "Eligible for Internship"
+
+def test_boundary_not_eligible():
+    avg = 59
     assert placement_eligibility(avg) == "Not Eligible"
