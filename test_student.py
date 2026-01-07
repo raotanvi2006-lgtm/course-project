@@ -1,4 +1,4 @@
-from student import calculate_average, placement_eligibility
+from student import get_student_details, display_details
 
 def test_average_marks():
     marks = [60, 70, 80]
