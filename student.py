@@ -1,20 +1,25 @@
-def get_student_details():
-    name = input("Enter student name: ")
-    program = input("Enter program (e.g., BCA / BSc / BE): ")
-    semester = input("Enter semester: ")
+import sys
 
-    num_courses = int(input("Enter number of courses registered: "))
+def get_student_details(argv):
+    # argv[0] is the script name, so we start from argv[1]
+    if len(argv) < 4:
+        print("Usage: python student.py <name> <program> <semester> <course1:marks> <course2:marks> ...")
+        sys.exit(1)
+
+    name = argv[1]
+    program = argv[2]
+    semester = argv[3]
+
+    # Remaining arguments are courses in the format CourseName:Marks
     courses = []
-
-    for i in range(num_courses):
-        print(f"\nCourse {i + 1}")
-        course_name = input("Course Name: ")
-        marks = int(input("Marks: "))
-
-        courses.append({
-            "course": course_name,
-            "marks": marks
-        })
+    for arg in argv[4:]:
+        try:
+            course_name, marks = arg.split(":")
+            marks = int(marks)
+            courses.append({"course": course_name, "marks": marks})
+        except ValueError:
+            print(f"Invalid course format: {arg}. Use CourseName:Marks")
+            sys.exit(1)
 
     return {
         "name": name,
@@ -36,10 +41,9 @@ def display_details(student):
             print(f"{c['course']} - {c['marks']} (Failed)")
         else:
             print(f"{c['course']} - {c['marks']}")
-
     print("====================================")
 
 
 if __name__ == "__main__":
-    student = get_student_details()
+    student = get_student_details(sys.argv)
     display_details(student)
