@@ -1,10 +1,23 @@
+def calculate_average(marks):
+    if not marks:   # handle empty list
+        return 0
+    return sum(marks) / len(marks)
+
+
+def placement_eligibility(avg):
+    if avg >= 75:
+        return "Eligible for Placement"
+    elif avg >= 60:
+        return "Eligible for Internship"
+    else:
+        return "Not Eligible"
+
+
 def get_student_details():
-    # Initialized values
     name = "Tanvi"
     program = "BCA"
     semester = "3"
 
-    # Predefined courses with marks
     courses = [
         {"course": "Math", "marks": 99},
         {"course": "Physics", "marks": 98},
@@ -37,3 +50,9 @@ def display_details(student):
 if __name__ == "__main__":
     student = get_student_details()
     display_details(student)
+
+    # Example usage of new functions
+    marks = [c["marks"] for c in student["courses"]]
+    avg = calculate_average(marks)
+    print("Average:", avg)
+    print("Eligibility:", placement_eligibility(avg))
